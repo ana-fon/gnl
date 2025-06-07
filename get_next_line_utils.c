@@ -54,7 +54,7 @@ char	*ft_join_free(char *line, char *buffer)
 	}
 	new_line = malloc((ft_strlen(line) + ft_strlen(buffer) + 1) * sizeof(char));
 	if (!new_line)
-		return (NULL);
+		return (free(line), NULL);
 	i = -1;
 	j = 0;
 	while (line[++i])
@@ -81,7 +81,7 @@ void	update_buffer(char *buffer)
 	j++;
 	while (j < BUFFER_SIZE && buffer[j])
 		buffer[i++] = buffer [j++];
-	while (i < BUFFER_SIZE)
+	while (i < BUFFER_SIZE + 1)
 		buffer[i++] = 0;
 }
 

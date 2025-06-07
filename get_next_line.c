@@ -18,14 +18,14 @@ char	*get_next_line(int fd)
 	char		*line;
 	char		*result;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	line = NULL;
 	if (buffer[0])
 	{
 		line = ft_join_free(line, buffer);
 		if (!line)
-			return (NULL);
+			return (free(line), NULL);
 	}
 	line = read_and_append(fd, line, buffer);
 	if (!line || *line == 0)
@@ -72,12 +72,33 @@ char	*extract_line(char *line)
 		len += 1;
 	new_line = malloc((len + 1) * sizeof(char));
 	if (!new_line)
-		return (free(line), NULL);
+		return (NULL);
 	i = -1;
 	while (++i < len)
 		new_line[i] = line [i];
 	new_line[len] = 0;
 	return (new_line);
+}
+
+int main(void)
+{
+  int    fd;
+  char  *next_line;
+  int  count;
+
+  count = 0;
+  fd = open("example.txt", O_RDONLY);
+  while (1)
+  {
+    next_line = get_next_line(fd);
+    if (next_line == NULL)
+      break ;
+    count++;
+    printf("[%d]:%s\n", count, next_line);
+    next_line = NULL;
+  }
+  close(fd);
+  return (0);
 }
 
 /* static char	*ft_handle_nl(char *buffer, char *line)
