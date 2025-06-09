@@ -84,26 +84,3 @@ void	update_buffer(char *buffer)
 	while (i < BUFFER_SIZE + 1)
 		buffer[i++] = 0;
 }
-
-/* void	ft_prep_buffer(char *buffer)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = ft_find_nl(buffer) + 1;
-	if (j < 0)
-	{
-		while (i < BUFFER_SIZE)
-			buffer[i++] = 0;
-		return ;
-	}
-	j++;
-	while (buffer[i + j])
-	{
-		buffer[i] = buffer [j];
-		i++;
-	}
-	while (i < BUFFER_SIZE)
-		buffer [i++] = 0;
-} */

@@ -30,5 +30,6 @@ int		ft_find_nl(char *str);
 void	update_buffer(char *buffer);
 char	*extract_line(char *line);
 char	*read_and_append(int fd, char *line, char *buffer);
+void	free_buffer(char *buffer);
 
 #endif /* GET_NEXT_LINE_H */

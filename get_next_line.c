@@ -38,6 +38,15 @@ char	*get_next_line(int fd)
 	return (result);
 }
 
+void	free_buffer(char *buffer)
+{
+	int	i;
+
+	i = -1;
+	while (buffer[++i])
+		buffer[i] = 0;
+}
+
 char	*read_and_append(int fd, char *line, char *buffer)
 {
 	int	bytes_read;
@@ -46,7 +55,7 @@ char	*read_and_append(int fd, char *line, char *buffer)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read == -1)
-			return (free(line), NULL);
+			return (free(line), free_buffer(buffer), NULL);
 		if (bytes_read == 0)
 			break ;
 		buffer[bytes_read] = 0;
@@ -80,7 +89,7 @@ char	*extract_line(char *line)
 	return (new_line);
 }
 
-int main(void)
+/* int main(void)
 {
   int    fd;
   char  *next_line;
@@ -99,66 +108,4 @@ int main(void)
   }
   close(fd);
   return (0);
-}
-
-/* static char	*ft_handle_nl(char *buffer, char *line)
-{
-	int	index;
-
-	if (!line)
-		return (NULL);
-	index = ft_find_nl(line);
-	if (index >= 0)
-		line[++index] = '\0';
-	ft_prep_buffer(buffer);
-	return (line);
-}
-
-static char	*ft_read_file(int fd, char *buffer, char *line)
-{
-	int	bytes_read;
-
-	ft_prep_buffer(buffer);
-	while (1)
-	{
-		bytes_read = read(fd, buffer, BUFFER_SIZE);
-		if (bytes_read < 0)
-			return (free(line), NULL);
-		if (bytes_read == 0)
-			break ;
-		buffer[bytes_read] = '\0';
-		line = ft_join_free(line, buffer);
-		if (!line)
-			return (NULL);
-		if (ft_find_nl(buffer) >= 0)
-			break ;
-		ft_prep_buffer(buffer);
-	}
-	return (line);
-}
-
-char	*get_next_line(int fd)
-{
-	static char	buffer[BUFFER_SIZE + 1];
-	char		*line;
-
-	if (fd < 0 || BUFFER_SIZE < 0)
-		return (NULL);
-	line = NULL;
-	if (buffer[0] != '\0')
-		line = ft_join_free(line, buffer);
-	if (ft_find_nl(buffer) >= 0)
-	{
-		if (!line)
-			return (NULL);
-		return (ft_handle_nl(buffer, line));
-	}
-	line = ft_read_file(fd, buffer, line);
-	if (!line || line[0] == '\0')
-	{
-		free(line);
-		return (NULL);
-	}
-	return (ft_handle_nl(buffer, line));
-}
- */
+} */
